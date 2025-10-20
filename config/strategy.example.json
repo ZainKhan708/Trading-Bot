@@ -1,0 +1,19 @@
+{
+  "strategy": {
+    "entry_signal_key": "zscore",
+    "price_key": "close",
+    "atr_key": "atr",
+    "entry_threshold": 1.25,
+    "exit_threshold": 0.1,
+    "base_position_size": 1.0,
+    "max_pyramids": 1,
+    "pyramid_scale": 0.4,
+    "trailing_stop_pct": 0.01
+  },
+  "regime": {
+    "adx_period": 14,
+    "adx_threshold": 23,
+    "breadth_period": 10,
+    "breadth_threshold": 0.5
+  }
+}

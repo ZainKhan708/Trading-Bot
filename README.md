@@ -1,51 +1,32 @@
 # Trading-Bot
 
-A simple algorithmic trading bot template written in Python. This repository provides starter code, configuration examples, and instructions to run a basic trading bot for educational and experimental purposes. It is NOT financial advice — use at your own risk.
+A C++ scaffolding project focused on building KuCoin exchange connectivity. The codebase includes:
 
-## Features
+- API credential management with HMAC-SHA256 + Base64 signing for KuCoin header v2 authentication.
+- A libcurl-powered REST client featuring configurable retries, exponential backoff, and token-bucket based endpoint throttling.
+- Public and private WebSocket clients built on Boost.Beast with automatic reconnection, subscription replay, and lightweight event parsing for order and fill streams.
 
-- Modular structure for strategy, data fetching, and order execution
-- Configuration-driven (API keys, symbols, timeframe)
-- Example strategy implementation and sample configuration files
+> ⚠️ **Security note:** never commit real API keys to the repository. Load secrets from environment variables or other secure storage before constructing `KucoinCredentials`.
 
 ## Requirements
 
-- Python 3.10+
-- pip
+- A C++20 capable compiler (GCC 11+, Clang 12+, or MSVC 19.30+)
+- CMake 3.16+
+- libcurl
+- OpenSSL (for HMAC + Base64)
+- Boost 1.75+ with the `system`, `thread`, and `json` components
 
-## Installation
+## Building
 
-1. Clone the repository (if it already has content):
-   git clone https://github.com/ZainKhan708/Trading-Bot.git
-   cd Trading-Bot
+```bash
+cmake -S . -B build
+cmake --build build
+```
 
-2. (Optional) Create and activate a virtual environment:
-   python -m venv venv
-   source venv/bin/activate  # macOS / Linux
-   venv\Scripts\activate     # Windows
+This produces the `trading_bot` static library and a `sample_app` executable that links against it.
 
-3. Install dependencies (if a requirements.txt exists):
-   pip install -r requirements.txt
+## Next steps
 
-## Configuration
-
-- Add your exchange API keys and bot configuration to a config file (examples/config.example.yml or .env). Never commit secrets or API keys to the repository.
-
-## Usage
-
-- Run the main bot script (update the filename to your main entry point):
-  python main.py
-
-- Use dry-run or paper-trading modes for testing before enabling live trading.
-
-## Contributing
-
-Contributions are welcome. Please open issues or pull requests and follow repository coding standards. Add tests and update documentation when adding new features.
-
-## License
-
-Add a LICENSE file (for example, MIT) to make licensing explicit. If none is provided, the project defaults to “All rights reserved”.
-
----
-
-This README was prepared for ZainKhan708/Trading-Bot. Replace or expand any sections to match the actual project structure and filenames.
+- Wire real trading strategies to the REST/WebSocket surfaces.
+- Provide TLS configuration for connecting to KuCoin's secure WebSocket endpoints.
+- Integrate persistence, metrics, and richer error handling as production needs grow.

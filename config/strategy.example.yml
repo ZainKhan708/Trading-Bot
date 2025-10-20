@@ -1,0 +1,16 @@
+# Example strategy configuration loaded via ConfigManager
+strategy:
+  entry_signal_key: zscore
+  price_key: close
+  atr_key: atr
+  entry_threshold: 1.5
+  exit_threshold: 0.2
+  base_position_size: 1.0
+  max_pyramids: 2
+  pyramid_scale: 0.5
+  trailing_stop_atr_multiplier: 1.5
+regime:
+  adx_period: 14
+  adx_threshold: 25
+  breadth_period: 20
+  breadth_threshold: 0.55

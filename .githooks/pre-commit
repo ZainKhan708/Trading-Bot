@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v clang-format >/dev/null 2>&1; then
+  echo "clang-format not found; skipping formatting" >&2
+  exit 0
+fi
+
+changed_files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(c|cc|cxx|cpp|h|hpp|hh|hxx|ixx)$' || true)
+
+if [[ -z "${changed_files}" ]]; then
+  exit 0
+fi
+
+echo "Running clang-format on staged files..."
+for file in ${changed_files}; do
+  clang-format -i "${file}"
+  git add "${file}"
+done

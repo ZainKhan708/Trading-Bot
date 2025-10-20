@@ -1,0 +1,95 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "ninja-debug",
+      "displayName": "Ninja - Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "TRADING_BOT_ENABLE_WARNINGS": "ON"
+      }
+    },
+    {
+      "name": "ninja-release",
+      "displayName": "Ninja - Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "TRADING_BOT_ENABLE_WARNINGS": "ON"
+      }
+    },
+    {
+      "name": "clang-tidy",
+      "displayName": "Ninja - Debug with clang-tidy",
+      "inherits": ["ninja-debug"],
+      "cacheVariables": {
+        "CMAKE_CXX_CLANG_TIDY": "clang-tidy;-warnings-as-errors=*"
+      }
+    },
+    {
+      "name": "asan",
+      "displayName": "Ninja - AddressSanitizer",
+      "inherits": ["ninja-debug"],
+      "cacheVariables": {
+        "TRADING_BOT_ENABLE_ASAN": "ON"
+      }
+    },
+    {
+      "name": "ubsan",
+      "displayName": "Ninja - UndefinedBehaviorSanitizer",
+      "inherits": ["ninja-debug"],
+      "cacheVariables": {
+        "TRADING_BOT_ENABLE_UBSAN": "ON"
+      }
+    },
+    {
+      "name": "coverage",
+      "displayName": "Ninja - Coverage",
+      "inherits": ["ninja-debug"],
+      "cacheVariables": {
+        "TRADING_BOT_ENABLE_COVERAGE": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "ninja-debug",
+      "configurePreset": "ninja-debug"
+    },
+    {
+      "name": "ninja-release",
+      "configurePreset": "ninja-release"
+    },
+    {
+      "name": "clang-tidy",
+      "configurePreset": "clang-tidy"
+    },
+    {
+      "name": "asan",
+      "configurePreset": "asan"
+    },
+    {
+      "name": "ubsan",
+      "configurePreset": "ubsan"
+    },
+    {
+      "name": "coverage",
+      "configurePreset": "coverage"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "default",
+      "configurePreset": "ninja-debug",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}
